@@ -44,7 +44,7 @@ a general theme of agility in a variety of environments.
 
 %install
 %__rm -rf %{buildroot}
-%makeinstall_std -C src prefix=%{_prefix} system-install
+%makeinstall_std -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
 %__sed -i s/ActionGame/ArcadeGame/g %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
