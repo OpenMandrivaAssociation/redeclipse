@@ -1,15 +1,15 @@
 Name:		redeclipse
-Version:	1.2
+Version:	1.3.1
 Release:	%mkrel 1
 Summary:	Fast aced first person ego-shooter
 Group:		Games/Arcade
 License:	zlib/libpng License
 URL:		http://www.redeclipse.net/
-Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name}_%{version}_linux_bsd.tar.bz2
-# 128x128 icon is broken in 1.2
-Patch0:		redeclipse-1.2-128icon.patch
+Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name}_%{version}_nix_bsd.tar.bz2
+# 128x128 icon is broken in 1.3
+Patch0:		redeclipse-1.3.1-128icon.patch
 BuildRequires:	imagemagick
-BuildRequires:	mesagl-devel
+BuildRequires:	pkgconfig(gl)
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
@@ -39,8 +39,8 @@ a general theme of agility in a variety of environments.
 %patch0 -p1 -b .icons
 
 %build
-%__sed -i -e 's/^CXXFLAGS= -O3 -fomit-frame-pointer$/CXXFLAGS= -O3 -fomit-frame-pointer %{optflags}/g' src/Makefile
-%make -C src
+%__sed -i -e 's/^CXXFLAGS= -O3 -fomit-frame-pointer$/CXXFLAGS=%{optflags}/g' src/Makefile
+make -C src
 
 %install
 %__rm -rf %{buildroot}
@@ -51,20 +51,19 @@ a general theme of agility in a variety of environments.
 %__rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
-%doc cc-by-sa.txt changelog.txt license.txt readme.txt trademark.txt
+%doc readme.txt doc/*.txt
 %{_bindir}/%{name}-server
 %{_bindir}/%{name}
 %dir %{_libdir}/%{name}/
 %{_libdir}/%{name}/%{name}-server
 %{_libdir}/%{name}/%{name}
 %{_datadir}/applications/%{name}.desktop
+%{_datadir}/pixmaps/%{name}.xpm
 %{_iconsdir}/hicolor/*/apps/%{name}.png
 %{_mandir}/man6/%{name}-server.6.*
 %{_mandir}/man6/%{name}.6.*
 
 %files data
-%defattr(-,root,root)
 %dir %{_datadir}/redeclipse
 %{_libdir}/%{name}/data
 %{_datadir}/redeclipse/*
