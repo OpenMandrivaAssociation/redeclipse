@@ -1,6 +1,6 @@
 Name:		redeclipse
 Version:	1.3.1
-Release:	%mkrel 1
+Release:	2
 Summary:	Fast aced first person ego-shooter
 Group:		Games/Arcade
 License:	zlib/libpng License
@@ -43,12 +43,8 @@ a general theme of agility in a variety of environments.
 make -C src
 
 %install
-%__rm -rf %{buildroot}
 %makeinstall_std -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
 %__sed -i s/ActionGame/ArcadeGame/g %{buildroot}%{_datadir}/applications/%{name}.desktop
-
-%clean
-%__rm -rf %{buildroot}
 
 %files
 %doc readme.txt doc/*.txt
