@@ -1,0 +1,47 @@
+Файлы redeclipse/src/1.png и redeclipse-patched/src/1.png различаются
+diff -urN redeclipse/src/system-install.mk redeclipse-patched/src/system-install.mk
+--- redeclipse/src/system-install.mk	2012-08-13 21:51:04.000000000 +1100
++++ redeclipse-patched/src/system-install.mk	2012-09-02 23:08:37.276181039 +1100
+@@ -21,7 +21,6 @@
+ 	install/nix/$(appsrcname)_x32.png \
+ 	install/nix/$(appsrcname)_x48.png \
+ 	install/nix/$(appsrcname)_x64.png \
+-	install/nix/$(appsrcname)_x128.png \
+ 	install/nix/$(appsrcname)_x32.xpm
+ 
+ install/nix/$(appsrcname)_x16.png: $(appsrcname).ico
+@@ -36,9 +35,6 @@
+ install/nix/$(appsrcname)_x64.png: $(appsrcname).ico
+ 	convert '$(appsrcname).ico[2]' $@
+ 
+-install/nix/$(appsrcname)_x128.png: $(appsrcname).ico
+-	convert '$(appsrcname).ico[3]' $@
+-
+ install/nix/$(appsrcname)_x32.xpm: $(appsrcname).ico
+ 	convert '$(appsrcname).ico[1]' $@
+ 
+@@ -101,7 +97,6 @@
+ 	install -d $(icondir)/32x32/apps
+ 	install -d $(icondir)/48x48/apps
+ 	install -d $(icondir)/64x64/apps
+-	install -d $(icondir)/128x128/apps
+ 	install -d $(pixmapdir)
+ 	sed -e 's,@LIBEXECDIR@,$(patsubst $(DESTDIR)%,%,$(libexecdir)),g' \
+ 		-e 's,@DATADIR@,$(patsubst $(DESTDIR)%,%,$(datadir)),g' \
+@@ -117,8 +112,6 @@
+ 		$(icondir)/48x48/apps/$(appname).png
+ 	install -m644 install/nix/$(appsrcname)_x64.png \
+ 		$(icondir)/64x64/apps/$(appname).png
+-	install -m644 install/nix/$(appsrcname)_x128.png \
+-		$(icondir)/128x128/apps/$(appname).png
+ 	install -m644 install/nix/$(appsrcname)_x32.xpm \
+ 		$(pixmapdir)/$(appname).xpm
+ 
+@@ -156,7 +149,6 @@
+ 	@rm -fv $(icondir)/32x32/apps/$(appname).png
+ 	@rm -fv $(icondir)/48x48/apps/$(appname).png
+ 	@rm -fv $(icondir)/64x64/apps/$(appname).png
+-	@rm -fv $(icondir)/128x128/apps/$(appname).png
+ 
+ system-uninstall: system-uninstall-client system-uninstall-server system-uninstall-data system-uninstall-docs system-uninstall-menus
+ 	-@rmdir -v $(libexecdir)/$(appname)
