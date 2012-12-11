@@ -10,6 +10,7 @@ Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name
 Patch0:		redeclipse-1.3.1-128icon.patch
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(gl)
+BuildRequires:	pkgconfig(glu)
 BuildRequires:	SDL-devel
 BuildRequires:	SDL_image-devel
 BuildRequires:	SDL_mixer-devel
@@ -63,4 +64,16 @@ make -C src
 %dir %{_datadir}/redeclipse
 %{_libdir}/%{name}/data
 %{_datadir}/redeclipse/*
+
+
+
+%changelog
+* Thu Sep 13 2012 Andrey Bondrov <abondrov@mandriva.org> 1.3.1-2
++ Revision: 816914
+- Rebuild for missing packages
+- New version 1.3.1
+
+* Tue Jan 17 2012 Andrey Bondrov <abondrov@mandriva.org> 1.2-1
++ Revision: 762039
+- imported package redeclipse
 
