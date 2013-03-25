@@ -1,0 +1,13 @@
+diff -urN redeclipse-1.4/src/install/nix/redeclipse.desktop.am redeclipse-1.4-patched/src/install/nix/redeclipse.desktop.am
+--- redeclipse-1.4/src/install/nix/redeclipse.desktop.am	2013-03-08 01:29:45.000000000 +1100
++++ redeclipse-1.4-patched/src/install/nix/redeclipse.desktop.am	2013-03-25 18:23:33.276864200 +1100
+@@ -20,6 +20,6 @@
+ Comment[it]=Sparatutto in prima persona con agile gameplay ed editor incorporato.
+ Comment[pt]=Jogo de tiros em primeira pessoa com jogabilidade ágil e editor incorporado.
+ Comment[sv]=Förstapersonsskjutare med rörlig spelstil och inbyggd baneditor.
+-Icon="@APPNAME@"
+-Exec="@APPNAME@"
+-Categories=Game;ActionGame;
++Icon=@APPNAME@
++Exec=@APPNAME@
++Categories=Game;ArcadeGame;

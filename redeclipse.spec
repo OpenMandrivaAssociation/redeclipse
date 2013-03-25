@@ -1,20 +1,19 @@
 Name:		redeclipse
-Version:	1.3.1
-Release:	2
+Version:	1.4
+Release:	1
 Summary:	Fast aced first person ego-shooter
 Group:		Games/Arcade
 License:	zlib/libpng License
 URL:		http://www.redeclipse.net/
-Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name}_%{version}_nix_bsd.tar.bz2
-# 128x128 icon is broken in 1.3
-Patch0:		redeclipse-1.3.1-128icon.patch
+Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name}_%{version}_nix.tar.bz2
+Patch0:		redeclipse-1.4-desktop.patch
 BuildRequires:	imagemagick
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
-BuildRequires:	SDL-devel
-BuildRequires:	SDL_image-devel
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	zlib-devel
+BuildRequires:	pkgconfig(sdl)
+BuildRequires:	pkgconfig(SDL_image)
+BuildRequires:	pkgconfig(SDL_mixer)
+BuildRequires:	pkgconfig(zlib)
 Requires:	%{name}-data >= %{version}
 
 %description
@@ -36,16 +35,15 @@ balanced gameplay, completely at the control of map makers, while maintaining
 a general theme of agility in a variety of environments.
 
 %prep
-%setup -q -n redeclipse
-%patch0 -p1 -b .icons
+%setup -q
+%patch0 -p1
 
 %build
-%__sed -i -e 's/^CXXFLAGS= -O3 -fomit-frame-pointer$/CXXFLAGS=%{optflags}/g' src/Makefile
+sed -i -e 's/^CXXFLAGS= -O3 -fomit-frame-pointer$/CXXFLAGS=%{optflags}/g' src/core.mk
 make -C src
 
 %install
 %makeinstall_std -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
-%__sed -i s/ActionGame/ArcadeGame/g %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %files
 %doc readme.txt doc/*.txt
@@ -63,17 +61,6 @@ make -C src
 %files data
 %dir %{_datadir}/redeclipse
 %{_libdir}/%{name}/data
+%{_libdir}/%{name}/game
 %{_datadir}/redeclipse/*
-
-
-
-%changelog
-* Thu Sep 13 2012 Andrey Bondrov <abondrov@mandriva.org> 1.3.1-2
-+ Revision: 816914
-- Rebuild for missing packages
-- New version 1.3.1
-
-* Tue Jan 17 2012 Andrey Bondrov <abondrov@mandriva.org> 1.2-1
-+ Revision: 762039
-- imported package redeclipse
 
