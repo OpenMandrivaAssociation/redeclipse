@@ -1,6 +1,6 @@
 Name:		redeclipse
 Version:	1.4
-Release:	1
+Release:	2
 Summary:	Fast aced first person ego-shooter
 Group:		Games/Arcade
 License:	zlib/libpng License
