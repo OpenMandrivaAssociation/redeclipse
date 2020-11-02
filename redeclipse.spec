@@ -72,7 +72,7 @@ previous TTF2Font, supporting a much larger range of characters.
     client server cube2font
 
 %install
-%make_install -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
+%make_install -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libexecdir} system-install system-install-cube2font
 
 # We package this in server docs
 rm -rf %{buildroot}%{_docdir}/%{name}/examples
