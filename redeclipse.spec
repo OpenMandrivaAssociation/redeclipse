@@ -40,32 +40,73 @@ built as a total conversion of Cube Engine 2, which lends itself toward a
 balanced gameplay, completely at the control of map makers, while maintaining
 a general theme of agility in a variety of environments.
 
+%package server
+Summary:        Server for the Red Eclipse FPS game
+# Game engine is zlib
+# Trademark info is CC-BY-SA
+# Name covered by "trademark guidelines" see trademark.txt
+License:        zlib and CC-BY-SA
+Requires:       %{name}-data >= %{version}-%{release}
+
+%description server
+This package contains the dedicated server for the Red Eclipse FPS game,
+it also includes some example scripts for configuring the server.
+
+%package -n cube2font
+Summary:        Utility program for creating font bitmaps for Cube Engine games
+License:        zlib
+
+%description -n cube2font
+cube2font is a utility program designed to create font bitmaps for Cube
+Engine games, it works by taking a Truetype font and building it into a
+set of coordinates in an image. cube2font is an improved version of the
+previous TTF2Font, supporting a much larger range of characters.
+
+
 %prep
 %setup -q
 %autopatch -p1
 
 %build
-%make_build -C src/
+%make_build -C src/ \
+    client server cube2font
 
 %install
 %make_install -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
 
+# We package this in server docs
+rm -rf %{buildroot}%{_docdir}/%{name}/examples
+
+
 %files
-%doc readme.txt doc/*.txt
-%{_bindir}/%{name}-server
+%doc readme.txt doc/announce.txt doc/guidelines.txt
+%license doc/license.txt doc/trademark.txt
 %{_bindir}/%{name}
-%dir %{_libdir}/%{name}/
-%{_libdir}/%{name}/%{name}-server
-%{_libdir}/%{name}/%{name}
+%{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.xpm
 %{_iconsdir}/hicolor/*/apps/%{name}.png
-%{_mandir}/man6/%{name}-server.6.*
-%{_mandir}/man6/%{name}.6.*
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/%{name}
+%{_mandir}/man6/%{name}.6*
+
 
 %files data
-%dir %{_datadir}/redeclipse
-%{_libdir}/%{name}/data
-%{_libdir}/%{name}/game
-%{_datadir}/redeclipse/*
+%license doc/license.txt doc/all-licenses.txt doc/trademark.txt
+%{_datadir}/%{name}/
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/config
+%{_libexecdir}/%{name}/data
+%{_libexecdir}/%{name}/doc
 
+%files server
+%doc doc/examples/servinit.cfg
+%license doc/license.txt doc/trademark.txt
+%{_bindir}/%{name}-server
+%dir %{_libexecdir}/%{name}/
+%{_libexecdir}/%{name}/%{name}-server
+%{_mandir}/man6/%{name}-server.6*
+
+%files -n cube2font
+%{_bindir}/cube2font
+%{_mandir}/man1/cube2font.1*
