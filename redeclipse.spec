@@ -1,3 +1,5 @@
+%global debug_package %{nil}
+
 Name:		redeclipse
 Version:	2.0.0
 Release:	1
