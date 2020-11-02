@@ -1,19 +1,25 @@
 Name:		redeclipse
-Version:	1.4
-Release:	2
+Version:	2.0.0
+Release:	1
 Summary:	Fast aced first person ego-shooter
 Group:		Games/Arcade
 License:	zlib/libpng License
 URL:		http://www.redeclipse.net/
-Source:		http://sourceforge.net/projects/%{name}/files/%{name}_%{version}/%{name}_%{version}_nix.tar.bz2
+Source:		https://github.com/redeclipse/base/releases/download/v%{version}/redeclipse_%{version}_nix.tar.bz2
 Patch0:		redeclipse-1.4-desktop.patch
 BuildRequires:	imagemagick
+BuildRequires:  ed
 BuildRequires:	pkgconfig(gl)
 BuildRequires:	pkgconfig(glu)
-BuildRequires:	pkgconfig(sdl)
-BuildRequires:	pkgconfig(SDL_image)
-BuildRequires:	pkgconfig(SDL_mixer)
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:  pkgconfig(libenet)
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(sdl2)
+BuildRequires:  pkgconfig(SDL2_image)
+BuildRequires:  pkgconfig(SDL2_mixer)
+BuildRequires:  pkgconfig(sqlite3)
+BuildRequires:  pkgconfig(x11)
+
 Requires:	%{name}-data >= %{version}
 
 %description
@@ -36,14 +42,13 @@ a general theme of agility in a variety of environments.
 
 %prep
 %setup -q
-%patch0 -p1
+%autopatch -p1
 
 %build
-sed -i -e 's/^CXXFLAGS= -O3 -fomit-frame-pointer$/CXXFLAGS=%{optflags}/g' src/core.mk
-make -C src
+%make_build -C src/
 
 %install
-%makeinstall_std -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
+%make_install -C src prefix=%{_prefix} libexecdir=%{buildroot}%{_libdir} system-install
 
 %files
 %doc readme.txt doc/*.txt
