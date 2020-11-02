@@ -6,7 +6,7 @@ Group:		Games/Arcade
 License:	zlib/libpng License
 URL:		http://www.redeclipse.net/
 Source:		https://github.com/redeclipse/base/releases/download/v%{version}/redeclipse_%{version}_nix.tar.bz2
-Patch0:		redeclipse-1.4-desktop.patch
+
 BuildRequires:	imagemagick
 BuildRequires:  ed
 BuildRequires:	pkgconfig(gl)
