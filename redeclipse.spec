@@ -10,6 +10,7 @@ URL:		https://www.redeclipse.net/
 Source:		https://github.com/redeclipse/base/releases/download/v%{version}/redeclipse_%{version}_nix.tar.bz2
 Patch0:     redeclipse-fix-cube2font-install.patch
 
+BuildRequires:	make
 BuildRequires:	imagemagick
 BuildRequires:  ed
 BuildRequires:	pkgconfig(gl)
